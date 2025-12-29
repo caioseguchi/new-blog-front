@@ -1,0 +1,21 @@
+.login-form {
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.login-form .form-label {
+  font-weight: 600;
+}
+
+.login-form input {
+  border-radius: 8px;
+}
+
+.login-form button {
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-weight: 600;
+}
