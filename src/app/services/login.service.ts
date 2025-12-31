@@ -7,17 +7,21 @@ import { LoginResponse } from '../types/login-response.type';
   providedIn: 'root',
 })
 export class LoginService {
+  apiUrl: string = 'http://localhost:8080/auth/login';
+
   //Create Contructor
   constructor(private httpClient: HttpClient) {}
 
-  login(name: String, password: String) {
+  login(email: String, password: String) {
     return this.httpClient
-      .post<LoginResponse>('/login', { name, password })
+      .post<LoginResponse>(this.apiUrl, {
+        userEmail: email,
+        userPassword: password,
+      })
       .pipe(
         tap((value) => {
           sessionStorage.setItem('auth-token', value.token);
-          sessionStorage.setItem('username', value.name);
-          sessionStorage.setItem('userId', value.id.toString());
+          sessionStorage.setItem('username', value.userFullName);
         })
       );
   }
@@ -28,7 +32,7 @@ export class LoginService {
       .pipe(
         tap((value) => {
           sessionStorage.setItem('auth-token', value.token);
-          sessionStorage.setItem('username', value.name);
+          sessionStorage.setItem('username', value.userFullName);
         })
       );
   }
