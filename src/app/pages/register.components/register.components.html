@@ -7,20 +7,6 @@
     class="login-form p-4 rounded shadow-sm"
   >
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="userEamil"
-        aria-describedby="emailHelp"
-        formControlName="email"
-      />
-      <div id="emailHelp" class="form-text">
-        We'll never share your email with anyone else.
-      </div>
-    </div>
-
-    <div class="mb-3">
       <label for="userFullName" class="form-label">Full Name</label>
       <input
         class="form-control input-bg-custom"
@@ -33,10 +19,24 @@
     </div>
 
     <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control input-bg-custom"
+        id="userEamil"
+        aria-describedby="emailHelp"
+        formControlName="email"
+      />
+      <div id="emailHelp" class="form-text">
+        We'll never share your email with anyone else.
+      </div>
+    </div>
+
+    <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input
         type="password"
-        class="form-control"
+        class="form-control input-bg-custom"
         id="userPassword"
         formControlName="password"
       />
@@ -48,8 +48,8 @@
       >
       <input
         type="password"
-        class="form-control"
-        id="userPassword"
+        class="form-control input-bg-custom"
+        id="userPasswordConfirm"
         formControlName="passwordConfirm"
       />
     </div>

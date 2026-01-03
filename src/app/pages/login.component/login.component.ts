@@ -37,21 +37,23 @@ export class LoginComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
       ]),
     });
   }
 
   onSubmit() {
+    const { email, password } = this.loginForm.getRawValue();
+
     this.loginService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe({
-        next: () => this.toastService.success('ok'),
+        next: (response) => {
+          if (response?.token) {
+            this.router.navigate(['/blog']);
+          }
+        },
         error: () => this.toastService.error('Error!'),
       });
-  }
-
-  navigate() {
-    this.router.navigate(['signup']);
   }
 }

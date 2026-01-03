@@ -7,10 +7,10 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { LoginService } from '../../services/login.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { RegisterService } from '../../services/register.service';
 
 interface RegisterForm {
   name: FormControl;
@@ -32,31 +32,43 @@ export class RegisterComponents {
   //Constructor
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private registerService: RegisterService,
     private toastService: ToastrService
   ) {
+    //Create form
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
       ]),
       passwordConfirm: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
       ]),
     });
   }
 
   //Submit Funtion
   onSubmit() {
-    if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-    }
-  }
+    const { email, name, password, passwordConfirm } =
+      this.registerForm.getRawValue();
 
-  navigate() {
-    this.router.navigate(['login']);
+    // (opcional) validar confirmação de senha
+    if (password !== passwordConfirm) {
+      this.toastService.error('Passwords do not match');
+      return;
+    }
+
+    this.registerService.register(name, email, password).subscribe({
+      next: (response) => {
+        if (response?.token) {
+          this.toastService.success('Account created!');
+          this.router.navigate(['/login']);
+        }
+      },
+      error: () => this.toastService.error('Register failed'),
+    });
   }
 }
